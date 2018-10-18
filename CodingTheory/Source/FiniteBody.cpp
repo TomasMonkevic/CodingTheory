@@ -2,25 +2,25 @@
 
 namespace TomasMo 
 {
-	FiniteBody::FiniteBody()
-		: FiniteBody(Elements::Zero)
+	FiniteBody::FiniteBody() noexcept
+		: FiniteBody(false)
 	{
 
 	}
 
-	FiniteBody::FiniteBody(Elements el)
+	FiniteBody::FiniteBody(bool el) noexcept
 		: Value(el)
 	{
 	}
 
 	FiniteBody FiniteBody::operator+(const FiniteBody& right) const
 	{
-		return FiniteBody(Value != right.Value ? Elements::One : Elements::Zero);
+		return FiniteBody(Value != right.Value ? true : false);
 	}
 
 	FiniteBody& FiniteBody::operator+=(const FiniteBody& right)
 	{
-		Value = Value != right.Value ? Elements::One : Elements::Zero;
+		Value = Value != right.Value ? true : false;
 		return *this;
 	}
 
@@ -36,7 +36,7 @@ namespace TomasMo
 
 	std::ostream& operator<<(std::ostream& stream, const FiniteBody& obj)
 	{
-		stream << (obj.Value == Elements::Zero ? "0" : "1");
+		stream << obj.Value;
 		return stream;
 	}
 }

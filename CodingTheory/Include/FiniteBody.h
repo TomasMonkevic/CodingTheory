@@ -5,21 +5,15 @@
 
 namespace TomasMo {
 
-	enum class Elements : uint8_t
-	{
-		Zero = 0,
-		One = 1
-	};
-
 	struct FiniteBody final
 	{
-		Elements Value;
+		bool Value;
 
 		static const FiniteBody Zero() { static FiniteBody rez;  return rez; }
-		static const FiniteBody One() { static FiniteBody rez(Elements::One);  return rez; }
+		static const FiniteBody One() { static FiniteBody rez(true);  return rez; }
 
-		FiniteBody();
-		explicit FiniteBody(Elements el);
+		FiniteBody() noexcept;
+		explicit FiniteBody(bool el) noexcept;
 
 		FiniteBody operator+(const FiniteBody& right) const;
 
@@ -30,4 +24,7 @@ namespace TomasMo {
 
 		friend std::ostream& operator<<(std::ostream& stream, const FiniteBody& obj);
 	};
+
+	#define F0 FiniteBody::Zero()
+	#define F1 FiniteBody::One()
 }

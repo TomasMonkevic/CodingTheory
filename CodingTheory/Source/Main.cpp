@@ -14,8 +14,8 @@ int main()
 	rez += zero;
 	rez += one;
 	std::cout << rez << std::endl;
-	std::cout << zero + one + one + one + zero + one << std::endl;
-	Vector vector({ one, zero, one, one, one, zero });
+	std::cout << zero + one + F1 + one + zero + one << std::endl;
+	Vector vector({ F1, F0, F1, F1, F1, F0 });
 	std::cout << vector << std::endl;
 	std::cin.get();
 	return 0;
