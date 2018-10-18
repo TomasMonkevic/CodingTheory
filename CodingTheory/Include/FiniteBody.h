@@ -11,7 +11,7 @@ namespace TomasMo {
 		One = 1
 	};
 
-	struct FiniteBody
+	struct FiniteBody final
 	{
 		Elements Value;
 

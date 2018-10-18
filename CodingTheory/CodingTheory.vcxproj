@@ -132,9 +132,11 @@
   <ItemGroup>
     <ClCompile Include="Source\FiniteBody.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\FiniteBody.h" />
+    <ClInclude Include="Include\Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
