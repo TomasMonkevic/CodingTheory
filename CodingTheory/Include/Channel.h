@@ -4,19 +4,25 @@
 
 namespace TomasMo {
 
+	template<typename T>
 	class Channel
 	{
 	private:
-		Vector _input;
-		Vector _output;
+		Vector<T> _input;
+		Vector<T> _output;
 		double _flipChance;
 
 	public:
-		Channel(double flipChance, const Vector& input);
+		Channel(double flipChance, const Vector<T>& input)
+			: _flipChance(flipChance), _input(input)
+		{}
 
-		void Simulate();
+		void Simulate()
+		{
+			//TODO
+		}
 
-		Vector& GetInput() { return _input; }
-		Vector& GetOutput() { return _output; }
+		Vector<T>& GetInput() { return _input; }
+		Vector<T>& GetOutput() { return _output; }
 	};
 }
