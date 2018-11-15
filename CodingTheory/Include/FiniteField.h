@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <ostream>
+#include <stdlib.h>
 
 namespace TomasMo {
 
@@ -22,6 +23,12 @@ namespace TomasMo {
 		FiniteField(uint32_t value) noexcept
 			: _value(value % N)
 		{}
+
+		FiniteField Corrupt()
+		{
+			FiniteField other = FiniteField(rand() % N);
+			return  other == *this ? other + One() : other;
+		}
 
 		FiniteField operator+(const FiniteField& right) const
 		{

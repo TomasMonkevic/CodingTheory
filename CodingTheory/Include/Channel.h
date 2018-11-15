@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Vector.h"
+#include <stdlib.h>
+
+#include <iostream>
 
 namespace TomasMo {
 
@@ -19,7 +22,12 @@ namespace TomasMo {
 
 		void Simulate()
 		{
-			//TODO
+			for (unsigned i = 0; i < _input.Size(); i++)
+			{
+				double flipChance = double(rand()) / double(RAND_MAX);
+				//std::cout << flipChance << std::endl;
+				_output.Add(flipChance <= _flipChance ? _input[i].Corrupt() : _input[i]);
+			}
 		}
 
 		Vector<T>& GetInput() { return _input; }
