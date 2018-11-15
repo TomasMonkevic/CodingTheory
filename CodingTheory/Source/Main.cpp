@@ -4,6 +4,7 @@
 #include "../Include/FiniteField.h"
 #include "../Include/Vector.h"
 #include "../Include/Channel.h"
+#include "../Include/Encoder.h"
 
 using namespace TomasMo;
 
@@ -27,15 +28,19 @@ int main()
 	std::cout << zero + one + one + one + zero << std::endl;
 	Vector<FiniteField<2>> vector ({ one, zero, one, one, one, zero });
 	Vector<FiniteField<2>> vector2({ zero, one });
-	std::cout << vector << std::endl;
-	vector[5] += one;
-	vector += vector2;
-	std::cout << vector << std::endl;
+	//std::cout << vector << std::endl;
+	//vector[5] += one;
+	//vector += vector2;
+	//std::cout << vector << std::endl;
 
-	Channel<FiniteField<2>> channel(0.2, vector);
-	channel.Simulate();
-	std::cout << "Input: " << channel.GetInput() << std::endl;
-	std::cout << "Output: " << channel.GetOutput() << std::endl;
+	//Channel<FiniteField<2>> channel(0.2, vector);
+	//channel.Simulate();
+	//std::cout << "Input: " << channel.GetInput() << std::endl;
+	//std::cout << "Output: " << channel.GetOutput() << std::endl;
+	Encoder encoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
+	encoder.Encode(vector);
+	std::cout << "Input: " << vector << std::endl;
+	std::cout << "Output: " << encoder.GetOutput() << std::endl;
 
 	FiniteField<5> tris(3);
 	FiniteField<5> keturi(4);

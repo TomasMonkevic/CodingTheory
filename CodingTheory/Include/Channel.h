@@ -8,7 +8,7 @@
 namespace TomasMo {
 
 	template<typename T>
-	class Channel
+	class Channel final
 	{
 	private:
 		Vector<T> _input;

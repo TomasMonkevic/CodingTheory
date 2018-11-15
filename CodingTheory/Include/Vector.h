@@ -3,7 +3,6 @@
 #include <ostream>
 #include <vector>
 #include <algorithm>
-#include "FiniteField.h"
 
 namespace TomasMo {
 
@@ -23,6 +22,8 @@ namespace TomasMo {
 		{}
 
 		inline void Add(const T& element) { Values.push_back(element); }
+		inline void AddFront(const T& element) { Values.insert(Values.begin(), element); }
+		inline void Pop() { Values.pop_back(); }
 		inline size_t Size() const { return Values.size(); }
 
 		Vector operator+(const Vector& right) const

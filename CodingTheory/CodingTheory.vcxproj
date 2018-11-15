@@ -130,10 +130,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Encoder.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Channel.h" />
+    <ClInclude Include="Include\Encoder.h" />
     <ClInclude Include="Include\FiniteField.h" />
     <ClInclude Include="Include\Vector.h" />
   </ItemGroup>
