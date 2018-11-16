@@ -21,6 +21,12 @@ namespace TomasMo
 		{
 			Add(input[i]);
 		}
+		Add(FiniteField<2>::Zero());
+		Add(FiniteField<2>::Zero());
+		Add(FiniteField<2>::Zero());
+		Add(FiniteField<2>::Zero());
+		Add(FiniteField<2>::Zero());
+		Add(FiniteField<2>::Zero());
 		return _output;
 	}
 }

@@ -17,8 +17,10 @@ namespace TomasMo
 			{
 				count++;
 			}
+			std::cout << el << " ";
 		}
-		return count >= (buffer.size() / 2);
+		std::cout << std::endl;
+		return count > (buffer.size() / 2);
 	}
 
 	Decoder::Decoder(const Vector<FiniteField<2>>& state)
