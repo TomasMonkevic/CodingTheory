@@ -5,6 +5,7 @@
 #include "../Include/Vector.h"
 #include "../Include/Channel.h"
 #include "../Include/Encoder.h"
+#include "../Include/Decoder.h"
 
 using namespace TomasMo;
 
@@ -40,7 +41,10 @@ int main()
 	Encoder encoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
 	encoder.Encode(vector);
 	std::cout << "Input: " << vector << std::endl;
-	std::cout << "Output: " << encoder.GetOutput() << std::endl;
+	std::cout << "Encoder output: " << encoder.GetOutput() << std::endl;
+	Decoder decoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
+	decoder.Decode(encoder.GetOutput());
+	std::cout << "Decoder output: " << decoder.GetOutput() << std::endl;
 
 	FiniteField<5> tris(3);
 	FiniteField<5> keturi(4);
