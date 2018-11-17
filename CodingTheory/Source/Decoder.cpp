@@ -24,7 +24,7 @@ namespace TomasMo
 	}
 
 	Decoder::Decoder(const Vector<FiniteField<2>>& state)
-		: _firstState(state), _secondState(state)
+		: _firstState(state), _secondState(state), _prevMdeResult(0)
 	{
 
 	}
@@ -35,8 +35,17 @@ namespace TomasMo
 		auto firstSum = _firstState[0] + _firstState[2] + _firstState[5] + _firstState[6];
 
 		_secondState.AddFront(firstSum + secondFiniteField);
+
 		bool mdeResult = MajorityDecisionElement<FiniteField<2>>(_secondState[0], _secondState[1],_secondState[4],_secondState[6]);
 		std::cout<<mdeResult<<std::endl;
+
+		//feddback
+		_secondState[0] += _prevMdeResult;
+		_secondState[1] += _prevMdeResult;
+		_secondState[4] += _prevMdeResult;
+
+		_prevMdeResult = mdeResult;
+		//------------------------------
 
 		_output.Add(FiniteField<2>(mdeResult) + _firstState[6]);
 

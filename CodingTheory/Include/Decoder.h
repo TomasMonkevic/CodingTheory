@@ -11,6 +11,7 @@ namespace TomasMo
 		Vector<FiniteField<2>> _firstState;
 		Vector<FiniteField<2>> _secondState;
 		Vector<FiniteField<2>> _output;
+		FiniteField<2> _prevMdeResult;
 
 	private:
 		void Add(FiniteField<2> firstFiniteField, FiniteField<2> secondFiniteField);
