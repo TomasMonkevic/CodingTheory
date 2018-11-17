@@ -38,6 +38,8 @@ int main()
 	//channel.Simulate();
 	//std::cout << "Input: " << channel.GetInput() << std::endl;
 	//std::cout << "Output: " << channel.GetOutput() << std::endl;
+	std::cin >> vector2;
+	std::cout << "Rez: "<< vector2 << std::endl;
 	Encoder encoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
 	encoder.Encode(vector);
 	std::cout << "Input: " << vector << std::endl;
@@ -49,6 +51,8 @@ int main()
 	FiniteField<5> tris(3);
 	FiniteField<5> keturi(4);
 	std::cout << tris << " + " << keturi << " = "<<tris+keturi;
+	std::cin.get();
+	std::cin.get();
 	std::cin.get();
 	return 0;
 }

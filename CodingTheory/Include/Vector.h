@@ -103,5 +103,22 @@ namespace TomasMo {
 			}
 			return stream;
 		}
+
+		friend std::istream& operator>>(std::istream& stream, Vector& obj)
+		{
+			//TODO can be improved but I think not necessery for avaluation
+			//separatos would be nice, but for finary doesn't matter
+			obj.Values.clear();
+
+			char buffer[256];
+			stream.getline(buffer, 256, '\n');
+			unsigned i = 0;
+			while (buffer[i] != ' ' && buffer[i] != '\n' && buffer[i] != '\0')
+			{
+				obj.Values.emplace_back<T>(uint32_t(buffer[i] - 0x30));
+				i++;
+			}
+			return stream;
+		}
 	};
 }

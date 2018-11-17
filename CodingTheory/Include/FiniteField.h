@@ -56,5 +56,12 @@ namespace TomasMo {
 			stream << obj._value;
 			return stream;
 		}
+
+		friend std::istream& operator>>(std::istream& stream, FiniteField& obj)
+		{
+			stream >> obj._value;
+			obj._value %= N;
+			return stream;
+		}
 	};
 }
