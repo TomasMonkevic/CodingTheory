@@ -7,11 +7,14 @@ set(CODING_THEORY_HEADERS
     "CodingTheory/Include/Encoder.h"
     "CodingTheory/Include/FiniteField.h"
     "CodingTheory/Include/Vector.h"
+    "CodingTheory/Include/ColorPrinter.h"
 )
 
 set(CODING_THEORY_SOURCES
     "CodingTheory/Source/Decoder.cpp"
     "CodingTheory/Source/Encoder.cpp"
+    
+    "CodingTheory/Source/Platforms/Linux/ColorPrinter.cpp"
 
     "CodingTheory/Source/Main.cpp"
 )

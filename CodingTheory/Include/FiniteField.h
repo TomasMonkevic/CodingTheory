@@ -25,6 +25,8 @@ namespace TomasMo {
 			: _value(value % N)
 		{}
 
+		uint32_t GetValue() const { return _value; }
+
 		FiniteField Corrupt()
 		{
 			FiniteField other = FiniteField(rand() % N);
