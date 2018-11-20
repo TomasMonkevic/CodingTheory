@@ -15,44 +15,25 @@ int main()
 
 	const FiniteField<2> one = FiniteField<2>::One();
 	const FiniteField<2> zero = FiniteField<2>::Zero();
-	FiniteField<2> rez = zero;
-	std::cout << rez << std::endl;
-	rez += one;
-	std::cout << rez << std::endl;
-	rez += one;
-	std::cout << rez << std::endl;
-	rez += zero;
-	std::cout << rez << std::endl;
-	rez += one;
-	std::cout << rez << std::endl;
-	std::cout << std::endl;
-	std::cout << zero + one + one + one + zero << std::endl;
-	Vector<FiniteField<2>> vector ({ one, zero, one, one, one, zero });
-	Vector<FiniteField<2>> vector2({ zero, one });
-	//std::cout << vector << std::endl;
-	//vector[5] += one;
-	//vector += vector2;
-	//std::cout << vector << std::endl;
 
-	//Channel<FiniteField<2>> channel(0.2, vector);
-	//channel.Simulate();
-	//std::cout << "Input: " << channel.GetInput() << std::endl;
-	//std::cout << "Output: " << channel.GetOutput() << std::endl;
-	std::cin >> vector2;
-	std::cout << "Rez: "<< vector2 << std::endl;
+	std::cout << "Please enter vector: ";
+	Vector<FiniteField<2>> vector;
+	std::cin >> vector;
+
 	Encoder encoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
 	encoder.Encode(vector);
-	std::cout << "Input: " << vector << std::endl;
-	std::cout << "Encoder output: " << encoder.GetOutput() << std::endl;
-	Decoder decoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
-	decoder.Decode(encoder.GetOutput());
-	std::cout << "Decoder output: " << decoder.GetOutput() << std::endl;
+	std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
 
-	FiniteField<5> tris(3);
-	FiniteField<5> keturi(4);
-	std::cout << tris << " + " << keturi << " = "<<tris+keturi;
-	std::cin.get();
-	std::cin.get();
+	Channel<FiniteField<2>> channel(0.0, encoder.GetOutput());
+	channel.Simulate();
+	std::cout << "Channel output: " << channel.GetOutput() << std::endl;
+
+	//TODO show error count end positions
+	//TODO let the user change vector
+
+	Decoder decoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
+	decoder.Decode(channel.GetOutput());
+	std::cout << "Decoder output: " << decoder.GetOutput() << std::endl;
 	std::cin.get();
 	return 0;
 }

@@ -17,9 +17,9 @@ namespace TomasMo
 			{
 				count++;
 			}
-			std::cout << el << " ";
+			//std::cout << el << " ";
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 		return count > (buffer.size() / 2);
 	}
 
@@ -37,7 +37,7 @@ namespace TomasMo
 		_secondState.AddFront(firstSum + secondFiniteField);
 
 		bool mdeResult = MajorityDecisionElement<FiniteField<2>>(_secondState[0], _secondState[1],_secondState[4],_secondState[6]);
-		std::cout<<mdeResult<<std::endl;
+		//std::cout<<mdeResult<<std::endl;
 
 		//feddback
 		_secondState[0] += _prevMdeResult;
