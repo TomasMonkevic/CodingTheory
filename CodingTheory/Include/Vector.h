@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <istream>
 #include <vector>
 #include <algorithm>
 
@@ -115,7 +116,7 @@ namespace TomasMo {
 			unsigned i = 0;
 			while (buffer[i] != ' ' && buffer[i] != '\n' && buffer[i] != '\0')
 			{
-				obj.Values.emplace_back<T>(uint32_t(buffer[i] - 0x30));
+				obj.Values.emplace_back(uint32_t(buffer[i] - 0x30));
 				i++;
 			}
 			return stream;

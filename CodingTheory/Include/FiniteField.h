@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <ostream>
+#include <istream>
 #include <stdlib.h>
 
 namespace TomasMo {
