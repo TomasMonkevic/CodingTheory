@@ -24,14 +24,13 @@ int main()
 	encoder.Encode(vector);
 	std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
 
-	Channel<FiniteField<2>> channel(0.1, encoder.GetOutput());
+	Channel<FiniteField<2>> channel(0.05, encoder.GetOutput());
 	channel.Simulate();
 	std::cout << "Channel output: ";
 	channel.DisplayOutputDiff(); 
 	std::cout << std::endl;
 	std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl;
 
-	//TODO show error count end positions
 	//TODO let the user change vector
 
 	Decoder decoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));

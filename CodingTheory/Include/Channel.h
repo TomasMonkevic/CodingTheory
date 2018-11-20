@@ -51,7 +51,7 @@ namespace TomasMo {
 				}
 				else
 				{
-					ColorPrinter::Print(ColorPrinter::Red, "%d", _output[i].GetValue());
+					ColorPrinter::Print(ColorPrinter::White, "%d", _output[i].GetValue());
 				}
 			}
 		}

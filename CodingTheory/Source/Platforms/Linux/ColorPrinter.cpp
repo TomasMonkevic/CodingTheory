@@ -9,11 +9,33 @@ namespace TomasMo
     {
         va_list vaArgs;
 		va_start(vaArgs, format);
+        char* colorFormat = new char[strlen(format)+32];
+        switch(color)
+        {
+            case ColorPrinter::White:
+                strcat(colorFormat, "\033[37m");
+                break;
+            case ColorPrinter::Red:
+                strcat(colorFormat, "\033[31m");
+                break;            
+            case ColorPrinter::Green:
+                strcat(colorFormat, "\033[32m");
+                break;            
+            case ColorPrinter::Blue:
+                strcat(colorFormat, "\033[34m");
+                break;            
+            default:
+                strcat(colorFormat, "\033[0m");
+                break;
+        }
+        strcat(colorFormat, format);
+        strcat(colorFormat, "\033[0m");
 #ifdef _WIN32
 		//int result = vsscanf_s(buffer, format, vaArgs);
 #else
-		int result = vprintf(format, vaArgs);
+		int result = vprintf(colorFormat, vaArgs);
 #endif
 		va_end(vaArgs);
+        delete[] colorFormat;
     }
 }

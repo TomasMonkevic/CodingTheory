@@ -7,9 +7,10 @@ namespace TomasMo
     public:
         enum Color
         {
-            Red = 1,
-            Green = 2,
-            Blue = 4
+            White = 0,
+            Red,
+            Green,
+            Blue,
         };
 
         static void Print(ColorPrinter::Color color, const char* format, ...);
