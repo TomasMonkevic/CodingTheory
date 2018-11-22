@@ -133,9 +133,11 @@
     <ClCompile Include="Source\Decoder.cpp" />
     <ClCompile Include="Source\Encoder.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Platforms\Windows\WinColorPrinter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Channel.h" />
+    <ClInclude Include="Include\ColorPrinter.h" />
     <ClInclude Include="Include\Decoder.h" />
     <ClInclude Include="Include\Encoder.h" />
     <ClInclude Include="Include\FiniteField.h" />
