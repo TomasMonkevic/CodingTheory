@@ -20,6 +20,12 @@ namespace TomasMo
 		Decoder(const Vector<FiniteField<2>>& state);
 
 		Vector<FiniteField<2>>& GetOutput() { return _output; }
+		Vector<FiniteField<2>> GetTrueOutput() const 
+		{ 
+			auto result = _output;
+			result.Drop(6);
+			return result;
+		}
 
 		Vector<FiniteField<2>>& Decode(const Vector<FiniteField<2>>& input);
 	};

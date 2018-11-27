@@ -23,6 +23,7 @@ namespace TomasMo {
 		{}
 
 		inline void Add(const T& element) { Values.push_back(element); }
+		inline void Drop(unsigned count) { Values.erase(Values.begin(), Values.begin() + count); }
 		inline void AddFront(const T& element) { Values.insert(Values.begin(), element); }
 		inline void Pop() { Values.pop_back(); }
 		inline size_t Size() const { return Values.size(); }
@@ -98,9 +99,13 @@ namespace TomasMo {
 
 		friend std::ostream& operator<<(std::ostream& stream, const Vector& obj)
 		{
-			for (const T& fb : obj.Values)
+			for (unsigned i = 0; i < obj.Values.size(); i++)
 			{
-				stream << fb;
+				if(i % 4 == 0 && i != 0)
+				{
+					stream << ' ';
+				}
+				stream << obj.Values[i];
 			}
 			return stream;
 		}

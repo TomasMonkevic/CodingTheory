@@ -15,7 +15,6 @@ namespace TomasMo {
 		Vector<T> _input;
 		Vector<T> _output;
 		double _flipChance;
-		uint32_t _errorCount = 0;
 
 	public:
 		Channel(double flipChance, const Vector<T>& input)
@@ -24,7 +23,6 @@ namespace TomasMo {
 
 		void Simulate()
 		{
-			_errorCount = 0;
 			for (unsigned i = 0; i < _input.Size(); i++)
 			{
 				double flipChance = double(rand()) / double(RAND_MAX);
@@ -32,7 +30,6 @@ namespace TomasMo {
 				if(flipChance <= _flipChance)
 				{
 					_output.Add(_input[i].Corrupt());
-					_errorCount++;
 				}
 				else
 				{
@@ -45,6 +42,10 @@ namespace TomasMo {
 		{
 			for (unsigned i = 0; i < _input.Size(); i++)
 			{
+				if(i % 4 == 0 && i != 0)
+				{
+					ColorPrinter::Print(ColorPrinter::White, "%s", " ");
+				}
 				if(_input[i] != _output[i])
 				{
 					ColorPrinter::Print(ColorPrinter::Red, "%d", _output[i].GetValue());
@@ -56,8 +57,28 @@ namespace TomasMo {
 			}
 		}
 
+		void ChangeOutputBits(const std::vector<int>& positions)
+		{
+			for(auto position : positions)
+			{
+				_output[position] = _output[position].Corrupt();
+			}
+		}
+
 		Vector<T>& GetInput() { return _input; }
 		Vector<T>& GetOutput() { return _output; }
-		uint32_t GetErrorCount() const { return _errorCount; }
+
+		uint32_t GetErrorCount() const 
+		{ 
+			uint32_t result = 0;
+			for (unsigned i = 0; i < _input.Size(); i++)
+			{
+				if(_input[i] != _output[i])
+				{
+					result++;
+				}
+			}
+			return result;
+		}
 	};
 }
