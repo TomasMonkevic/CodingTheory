@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../Include/FiniteField.h"
 #include "../Include/Vector.h"
 #include "../Include/Channel.h"
@@ -9,18 +10,31 @@
 
 using namespace TomasMo;
 
+static const FiniteField<2> ONE = FiniteField<2>::One();
+static const FiniteField<2> ZERO = FiniteField<2>::Zero();
+
+void Scenario1();
+void Scenario2();
+void Scenario3();
+
 int main()
 {
 	srand(time(nullptr));
 
-	const FiniteField<2> one = FiniteField<2>::One();
-	const FiniteField<2> zero = FiniteField<2>::Zero();
+	//Scenario1();
+	Scenario2();
+	//Scenario3();
 
+	return 0;
+}
+
+void Scenario1()
+{
 	std::cout << "Please enter vector: ";
 	Vector<FiniteField<2>> vector;
 	std::cin >> vector;
 
-	Encoder encoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
+	Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
 	std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
 
@@ -55,10 +69,33 @@ int main()
 		std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl; 
 	}
 
-	Decoder decoder(Vector<FiniteField<2>>({ zero, zero, zero, zero, zero, zero }));
+	Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	decoder.Decode(channel.GetOutput());
 	//TODO also display wrong decoded output in red
 	std::cout << "Decoder output: " << decoder.GetTrueOutput() << std::endl;
 	std::cin.get();
-	return 0;
+}
+
+void Scenario2()
+{
+	std::cout << "Enter text to encode and send." << std::endl;
+	std::string text;
+	char line[257];
+	do
+	{
+		std::cin.getline(line, 256, '\n');
+		if(strcmp("\\q", line))
+		{
+			text += line;
+			text += '\n';
+		}
+	}
+	while(strcmp("\\q", line));
+	std::cout << "Entered text:" << std::endl;
+	std::cout << text << std::endl;
+}
+
+void Scenario3()
+{
+
 }
