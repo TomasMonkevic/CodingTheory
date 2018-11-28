@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include "../Include/FiniteField.h"
 #include "../Include/Vector.h"
 #include "../Include/Channel.h"
@@ -93,6 +93,15 @@ void Scenario2()
 	while(strcmp("\\q", line));
 	std::cout << "Entered text:" << std::endl;
 	std::cout << text << std::endl;
+	Vector<FiniteField<2>> vector(text);
+
+	Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	encoder.Encode(vector);
+	//std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
+	Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	decoder.Decode(encoder.GetOutput());
+	std::cout << "Decoder output: " << decoder.GetTrueOutput().ToText() << std::endl;
+	std::cin.get();
 }
 
 void Scenario3()

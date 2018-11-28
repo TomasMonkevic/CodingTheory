@@ -22,6 +22,41 @@ namespace TomasMo {
 			: Values(values)
 		{}
 
+		Vector(const std::string& text)
+			: Values()
+		{
+			for (char c : text)
+			{
+				uint8_t mask = 0x80;
+				for (int8_t i = 7; i >= 0; i--)
+				{
+					Values.emplace_back(((uint8_t)c & mask) >> i);
+					mask = mask >> 1;
+				}
+			}
+		}
+
+		std::string ToText() const
+		{
+			std::string result = "";
+
+			for (int i=0; i < Values.size() / 8; i++)
+			{
+				uint8_t c = 0;
+				for (int j = 0; j < 8; j++)
+				{
+					c += Values[i * 8 + j].GetValue();
+					if (j != 7)
+					{
+						c = c << 1;
+					}
+				}
+				result += (char)c;
+			}
+
+			return result;
+		}
+
 		inline void Add(const T& element) { Values.push_back(element); }
 		inline void Drop(unsigned count) { Values.erase(Values.begin(), Values.begin() + count); }
 		inline void AddFront(const T& element) { Values.insert(Values.begin(), element); }
