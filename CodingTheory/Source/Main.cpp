@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
-#include <string>
+#include <string.h>
 #include "../Include/FiniteField.h"
 #include "../Include/Vector.h"
 #include "../Include/Channel.h"
@@ -91,17 +91,26 @@ void Scenario2()
 		}
 	}
 	while(strcmp("\\q", line));
+	text.pop_back();
 	std::cout << "Entered text:" << std::endl;
 	std::cout << text << std::endl;
 	Vector<FiniteField<2>> vector(text);
 
 	Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
-	//std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
+
+	Channel<FiniteField<2>> channel(0.05, encoder.GetOutput());
+	channel.Simulate();
+	std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl;
+
 	Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
-	decoder.Decode(encoder.GetOutput());
+	decoder.Decode(channel.GetOutput());
 	std::cout << "Decoder output: " << decoder.GetTrueOutput().ToText() << std::endl;
-	std::cin.get();
+
+	Channel<FiniteField<2>> channel2(0.02, encoder.GetOutput());
+	channel2.Simulate();
+	std::cout << channel2.GetErrorCount() << " errors made in channel." << std::endl;
+	std::cout << "Not encoded output:" << channel2.GetOutput().ToText() << std::endl;
 }
 
 void Scenario3()
