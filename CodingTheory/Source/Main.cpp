@@ -149,13 +149,34 @@ void Scenario3()
 	uint8_t* image = stbi_load(path.c_str(), &width, &height, &n, 0);
 	if (image)
 	{
+		const double ERROR_CHANCE = 0.001;
+
 		Vector<FiniteField<2>> vector(image, width * height * n);
-		Channel<FiniteField<2>> channel(0.01, vector);
+
+		std::cout << "--- with encoding ---" << std::endl;
+
+		Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+		encoder.Encode(vector);
+
+		Channel<FiniteField<2>> channel(ERROR_CHANCE, encoder.GetOutput());
 		channel.Simulate();
 		std::cout << channel.GetErrorCount() << " of " << channel.GetInput().Size() << " errors made in channel." << std::endl;
 
-		stbi_write_bmp("WithoutEncoding.bmp", width, height, n, channel.GetOutput().ToBytes().data());
+		Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+		decoder.Decode(channel.GetOutput());
+
+		stbi_write_bmp("WithEncoding.bmp", width, height, n, decoder.GetOutput().ToBytes().data());
+
+		std::cout << std::endl;
+
+		std::cout << "--- without encoding ---" << std::endl;
+		Channel<FiniteField<2>> channel2(ERROR_CHANCE, vector);
+		channel2.Simulate();
+		std::cout << channel2.GetErrorCount() << " of " << channel2.GetInput().Size() << " errors made in channel." << std::endl;
+
+		stbi_write_bmp("WithoutEncoding.bmp", width, height, n, channel2.GetOutput().ToBytes().data());
 	}
 	stbi_image_free(image);
+	std::cin.get();
 	std::cin.get();
 }
