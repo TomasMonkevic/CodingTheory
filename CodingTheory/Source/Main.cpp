@@ -147,8 +147,15 @@ void Scenario3()
 	std::cin >> path;
 	int width, height, n;
 	uint8_t* image = stbi_load(path.c_str(), &width, &height, &n, 0);
+	if (image)
+	{
+		Vector<FiniteField<2>> vector(image, width * height * n);
+		Channel<FiniteField<2>> channel(0.01, vector);
+		channel.Simulate();
+		std::cout << channel.GetErrorCount() << " of " << channel.GetInput().Size() << " errors made in channel." << std::endl;
 
-	stbi_write_bmp("Copy.bmp", width, height, n, image);
-
+		stbi_write_bmp("WithoutEncoding.bmp", width, height, n, channel.GetOutput().ToBytes().data());
+	}
 	stbi_image_free(image);
+	std::cin.get();
 }

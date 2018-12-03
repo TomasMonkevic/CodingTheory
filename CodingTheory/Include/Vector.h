@@ -36,6 +36,21 @@ namespace TomasMo {
 			}
 		}
 
+		Vector(const uint8_t* bytes, uint64_t size)
+			: Values()
+		{
+			Values.reserve(size);
+			for (uint64_t j=0; j<size; j++)
+			{
+				uint8_t mask = 0x80;
+				for (int8_t i = 7; i >= 0; i--)
+				{
+					Values.emplace_back(((uint8_t)bytes[j] & mask) >> i);
+					mask = mask >> 1;
+				}
+			}
+		}
+
 		std::string ToText() const
 		{
 			std::string result = "";
@@ -52,6 +67,27 @@ namespace TomasMo {
 					}
 				}
 				result += (char)c;
+			}
+
+			return result;
+		}
+
+		std::vector<uint8_t> ToBytes() const
+		{
+			std::vector<uint8_t> result;
+
+			for (int i = 0; i < Values.size() / 8; i++)
+			{
+				uint8_t c = 0;
+				for (int j = 0; j < 8; j++)
+				{
+					c += Values[i * 8 + j].GetValue();
+					if (j != 7)
+					{
+						c = c << 1;
+					}
+				}
+				result.push_back(c);
 			}
 
 			return result;
