@@ -8,6 +8,7 @@
 #include "../Include/Channel.h"
 #include "../Include/Encoder.h"
 #include "../Include/Decoder.h"
+#include "../Include/Utils/Utils.h"
 
 using namespace TomasMo;
 
@@ -42,8 +43,8 @@ int main()
 	srand(time(nullptr));
 
 	//Scenario1();
-	Scenario2();
-	//Scenario3();
+	//Scenario2();
+	Scenario3();
 
 	return 0;
 }
@@ -141,5 +142,13 @@ void Scenario2()
 
 void Scenario3()
 {
+	std::cout << "Enter BMP image absoulte path: ";
+	std::string path;
+	std::cin >> path;
+	int width, height, n;
+	uint8_t* image = stbi_load(path.c_str(), &width, &height, &n, 0);
 
+	stbi_write_bmp("Copy.bmp", width, height, n, image);
+
+	stbi_image_free(image);
 }
