@@ -175,6 +175,11 @@ void Scenario3()
 		std::cout << channel2.GetErrorCount() << " of " << channel2.GetInput().Size() << " errors made in channel." << std::endl;
 
 		stbi_write_bmp("WithoutEncoding.bmp", width, height, n, channel2.GetOutput().ToBytes().data());
+		std::cout << "Done!" << std::endl;
+	}
+	else
+	{
+		std::cout << "Image (" << path << ") not found!" << std::endl;
 	}
 	stbi_image_free(image);
 	std::cin.get();
