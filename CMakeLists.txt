@@ -8,11 +8,17 @@ set(CODING_THEORY_HEADERS
     "CodingTheory/Include/FiniteField.h"
     "CodingTheory/Include/Vector.h"
     "CodingTheory/Include/ColorPrinter.h"
+
+    "CodingTheory/Include/Utils/stb_image_write.h"
+    "CodingTheory/Include/Utils/stb_image.h"
 )
 
 set(CODING_THEORY_SOURCES
     "CodingTheory/Source/Decoder.cpp"
     "CodingTheory/Source/Encoder.cpp"
+
+    "CodingTheory/Source/Utils/stb_image_write.cpp"
+    "CodingTheory/Source/Utils/stb_image.cpp"
     
     "CodingTheory/Source/Platforms/Linux/ColorPrinter.cpp"
 
