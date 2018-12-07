@@ -165,7 +165,7 @@ void Scenario3()
 		Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 		decoder.Decode(channel.GetOutput());
 
-		stbi_write_bmp("WithEncoding.bmp", width, height, n, decoder.GetOutput().ToBytes().data());
+		stbi_write_bmp("WithEncoding.bmp", width, height, n, decoder.GetTrueOutput().ToBytes().data());
 
 		std::cout << std::endl;
 
