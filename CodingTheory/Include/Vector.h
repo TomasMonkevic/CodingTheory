@@ -7,7 +7,7 @@
 
 namespace TomasMo {
 
-	template<typename T>
+	template<typename T> //T èia baigtinis kûnas
 	struct Vector final
 	{
 		using Containter = std::vector<T>;
@@ -22,6 +22,7 @@ namespace TomasMo {
 			: Values(values)
 		{}
 
+		//Vektoriaus konstravimas ið teksto
 		Vector(const std::string& text)
 			: Values()
 		{
@@ -37,6 +38,7 @@ namespace TomasMo {
 			}
 		}
 
+		//Vektoriaus konstravimas ið baitø
 		Vector(const uint8_t* bytes, uint64_t size)
 			: Values()
 		{
@@ -52,6 +54,7 @@ namespace TomasMo {
 			}
 		}
 
+		//Vektoriaus konvertavimas á tekstà
 		std::string ToText() const
 		{
 			std::string result = "";
@@ -73,6 +76,7 @@ namespace TomasMo {
 			return result;
 		}
 
+		//Vektoriaus konvertavimas á baitus
 		std::vector<uint8_t> ToBytes() const
 		{
 			std::vector<uint8_t> result;
@@ -94,12 +98,19 @@ namespace TomasMo {
 			return result;
 		}
 
+		//Pridedamas baigtinis kûnas á vektoriaus galà
 		inline void Add(const T& element) { Values.push_back(element); }
+		//Iðtrinamas pirmas vektoriaus baigtinis kûnas
 		inline void Drop(unsigned count) { Values.erase(Values.begin(), Values.begin() + count); }
+		//Pridedamas baigtinis kûnas á vektoriaus pradþià
 		inline void AddFront(const T& element) { Values.insert(Values.begin(), element); }
+		//Iðtrinamas paskutinis vektoriaus baigtinis kûnas
 		inline void Pop() { Values.pop_back(); }
+		//Gaunamas vektoriaus dydis
 		inline size_t Size() const { return Values.size(); }
 
+		//Dviejø vektoriø sudeties operacija
+		//Baigtiniai kûnai sudedami panariui
 		Vector operator+(const Vector& right) const
 		{
 			Vector result;
@@ -141,6 +152,7 @@ namespace TomasMo {
 			return *this;
 		}
 
+		//Vektoriu palyginimo funkcija
 		bool operator!=(const Vector& right) const
 		{
 			return !(*this == right);

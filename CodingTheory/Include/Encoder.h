@@ -5,7 +5,7 @@
 
 namespace TomasMo
 {
-	template<typename T>
+	template<typename T> //T èia baigtinis kûnas
 	class Encoder final
 	{
 	private:

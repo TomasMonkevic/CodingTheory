@@ -7,6 +7,7 @@
 
 namespace TomasMo {
 
+	//Baigtinio kûno klasë.
 	template<uint32_t N>
 	class FiniteField final
 	{
@@ -27,12 +28,14 @@ namespace TomasMo {
 
 		uint32_t GetValue() const { return _value; }
 
+		//Keièia baigtinio kûno reikðmæ. Pvz. ið 0 á 1 arba ið 1 á 0
 		FiniteField Corrupt()
 		{
 			FiniteField other = FiniteField(rand() % N);
 			return  other == *this ? other + One() : other;
 		}
 
+		//Baigtinio kûno sumos operacijà. Suma moduliu N, kur N tai baigtinio kûno elementø skaièius
 		FiniteField operator+(const FiniteField& right) const
 		{
 			return FiniteField(_value + right._value);
@@ -44,6 +47,7 @@ namespace TomasMo {
 			return *this;
 		}
 
+		//Baigtinio kûno palyginimo operacijos
 		bool operator!=(const FiniteField& right) const
 		{
 			return !(*this == right);

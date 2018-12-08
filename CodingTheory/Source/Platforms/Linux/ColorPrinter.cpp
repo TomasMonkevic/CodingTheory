@@ -30,11 +30,7 @@ namespace TomasMo
         }
         strcat(colorFormat, format);
         strcat(colorFormat, "\033[0m");
-#ifdef _WIN32
-		//int result = vsscanf_s(buffer, format, vaArgs);
-#else
 		int result = vprintf(colorFormat, vaArgs);
-#endif
 		va_end(vaArgs);
         delete[] colorFormat;
     }

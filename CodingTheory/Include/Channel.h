@@ -8,7 +8,7 @@
 
 namespace TomasMo {
 
-	template<typename T>
+	template<typename T> //T èia baigtinis kûnas
 	class Channel final
 	{
 	private:

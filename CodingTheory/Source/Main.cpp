@@ -15,22 +15,30 @@ using namespace TomasMo;
 static const FiniteField<2> ONE = FiniteField<2>::One();
 static const FiniteField<2> ZERO = FiniteField<2>::Zero();
 
+//Priima kanalo iðkraipimo tikimybæ ir simuliuoja uþduoties pirmà scenariø.
 void Scenario1(double errorRate);
+//Priima kanalo iðkraipimo tikimybæ ir simuliuoja uþduoties antrà scenariø.
 void Scenario2(double errorRate);
+//Priima kanalo iðkraipimo tikimybæ ir simuliuoja uþduoties treèià scenariø.
 void Scenario3(double errorRate);
 
+//Pakeièia programos kanao iðkraipimo tikimybæ.
 void ChangeErrorRate(double& errorRate);
 
+//Ðios funkcijos parodo skirtumà tarp dviejø tekstø arba vektoriø.
+//Skirtumas yra spalvinamas raudonai o sutampanèios vietos baltai.
+//Taip pat, parodomas skirtumø skaièius.
 void Differance(const std::string& left, const std::string& right);
 void Differance(const Vector<FiniteField<2>>& left, const Vector<FiniteField<2>>& right);
 
+//Programos áeitës taðkas (angl. entry point)
 int main()
 {
 	srand((unsigned int)time(nullptr));
 
 	char selection = '0';
 	double errorRate = 0.05;
-	do
+	do //Pagrindinis programos ciklas
 	{
 		std::cout << "----------Menu-----------" << std::endl;
 		std::cout << "Current error rate: " << errorRate << std::endl;
@@ -43,7 +51,7 @@ int main()
 		std::cout << "-------------------------" << std::endl;
 		selection = '0';
 		std::cin.get(selection);
-		switch (selection)
+		switch (selection) //Menu pasirinkimai
 		{
 			case '1':
 				Scenario1(errorRate);
@@ -71,22 +79,25 @@ int main()
 
 void Scenario1(double errorRate)
 {
+	//Vektoriaus ávedimas
 	std::cout << "Please enter vector: ";
 	Vector<FiniteField<2>> vector;
 	std::cin.ignore(256, '\n');
 	std::cin >> vector;
 
+	//Vektoriaus uþkodavimas
 	Encoder<FiniteField<2>> encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
 	std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
 
+	//Uþkuodoto vektoriaus siuntimas kanalu
 	Channel<FiniteField<2>> channel(errorRate, encoder.GetOutput());
 	channel.Simulate();
 	std::cout << "Channel output: ";
 	Differance(channel.GetInput(), channel.GetOutput());
 	std::cout << std::endl;
-	//std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl;
 
+	//Iðeito ið kanalo vektoriaus pataisymai, jeigu reikia.
 	char edditAnwser;
 	std::cout << "Do you want to eddit channel ouput? y/n: ";
 	std::cin >> edditAnwser;
@@ -109,12 +120,11 @@ void Scenario1(double errorRate)
 		std::cout << "Channel output after edit: ";
 		Differance(channel.GetInput(), channel.GetOutput());
 		std::cout << std::endl;
-		//std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl; 
 	}
 
+	//Dekodavimas
 	Decoder<FiniteField<2>> decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	decoder.Decode(channel.GetOutput());
-
 	std::cout << "Decoder output: " << std::endl;
 	Differance(vector, decoder.GetTrueOutput());
 	std::cin.get();
@@ -122,6 +132,7 @@ void Scenario1(double errorRate)
 
 void Scenario2(double errorRate)
 {
+	//Teksto áveimas
 	std::cin.ignore(256, '\n');
 	std::cout << "Enter text (\\q - to finish): " << std::endl;
 	std::string text;
@@ -142,9 +153,10 @@ void Scenario2(double errorRate)
 		std::cout << "No input found!" << std::endl;
 		return;
 	}
-	text.pop_back();
+	text.pop_back(); //Paskutinë tuðèia nauja eilutë yra iðtrinama
 	Vector<FiniteField<2>> vector(text);
 
+	//Teksto uþkodavimas ir siuntimas kanalu
 	Encoder<FiniteField<2>> encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
 
@@ -159,6 +171,7 @@ void Scenario2(double errorRate)
 
 	std::cout << std::endl;
 
+	//Teksto siuntimas kanalu neuþdodavus vektoriaus
 	std::cout << "--- without encoding ---" << std::endl;
 	Channel<FiniteField<2>> channel2(errorRate, vector);
 	channel2.Simulate();
@@ -173,7 +186,8 @@ void Scenario3(double errorRate)
 	std::string path;
 	std::cin >> path;
 	int width, height, n;
-	uint8_t* image = stbi_load(path.c_str(), &width, &height, &n, 0);
+	//paveiksliuko skaitymas. funkcija gràþina tik pixeliø vertes (nëra BMP header'io). 
+	uint8_t* image = stbi_load(path.c_str(), &width, &height, &n, 0); 
 	if (image)
 	{
 		Vector<FiniteField<2>> vector(image, width * height * n);
