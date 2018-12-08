@@ -92,11 +92,12 @@ void Scenario1(double errorRate)
 	std::cin >> edditAnwser;
 	if(edditAnwser == 'y' || edditAnwser == 'Y')
 	{
-		std::cout << "Enter positions to flip: ";
+		std::cout << "Enter positions to flip ('-1' - to finish): " << std::endl;
 		std::vector<int> positionsToFlip;
 		int position;
 		do
 		{
+			std::cout << "> ";
 			std::cin >> position;
 			if(position >= 0)
 			{
@@ -219,6 +220,7 @@ void ChangeErrorRate(double& errorRate)
 void Differance(const std::string& left, const std::string& right)
 {
 	uint32_t errorCount = 0;
+	std::cout << "------------Output-------------" << std::endl;
 	for (unsigned i = 0; i < left.size(); i++)
 	{
 		if (left[i] != right[i])
@@ -232,6 +234,7 @@ void Differance(const std::string& left, const std::string& right)
 		}
 	}
 	std::cout << std::endl;
+	std::cout << "------------------------------" << std::endl;
 	std::cout << "Errors made: " << errorCount << std::endl;
 }
 
