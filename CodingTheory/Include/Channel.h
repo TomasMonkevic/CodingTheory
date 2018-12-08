@@ -38,25 +38,6 @@ namespace TomasMo {
 			}
 		}
 
-		void DisplayOutputDiff()
-		{
-			for (unsigned i = 0; i < _input.Size(); i++)
-			{
-				if(i % 4 == 0 && i != 0)
-				{
-					ColorPrinter::Print(ColorPrinter::White, "%s", " ");
-				}
-				if(_input[i] != _output[i])
-				{
-					ColorPrinter::Print(ColorPrinter::Red, "%d", _output[i].GetValue());
-				}
-				else
-				{
-					ColorPrinter::Print(ColorPrinter::White, "%d", _output[i].GetValue());
-				}
-			}
-		}
-
 		void ChangeOutputBits(const std::vector<int>& positions)
 		{
 			for(auto position : positions)
