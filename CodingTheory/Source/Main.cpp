@@ -26,7 +26,7 @@ void Differance(const Vector<FiniteField<2>>& left, const Vector<FiniteField<2>>
 
 int main()
 {
-	srand(time(nullptr));
+	srand((unsigned int)time(nullptr));
 
 	char selection = '0';
 	double errorRate = 0.05;
@@ -76,7 +76,7 @@ void Scenario1(double errorRate)
 	std::cin.ignore(256, '\n');
 	std::cin >> vector;
 
-	Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	Encoder<FiniteField<2>> encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
 	std::cout << "Encoded vector: " << encoder.GetOutput() << std::endl;
 
@@ -112,7 +112,7 @@ void Scenario1(double errorRate)
 		//std::cout << channel.GetErrorCount() << " errors made in channel." << std::endl; 
 	}
 
-	Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	Decoder<FiniteField<2>> decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	decoder.Decode(channel.GetOutput());
 
 	std::cout << "Decoder output: " << std::endl;
@@ -145,7 +145,7 @@ void Scenario2(double errorRate)
 	text.pop_back();
 	Vector<FiniteField<2>> vector(text);
 
-	Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	Encoder<FiniteField<2>> encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	encoder.Encode(vector);
 
 	std::cout << "--- with encoding ---" << std::endl;
@@ -153,7 +153,7 @@ void Scenario2(double errorRate)
 	channel.Simulate();
 	std::cout << channel.GetErrorCount() << " of " << channel.GetInput().Size() << " errors made in channel." << std::endl;
 
-	Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+	Decoder<FiniteField<2>> decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 	decoder.Decode(channel.GetOutput());
 	Differance(vector.ToText(), decoder.GetTrueOutput().ToText());
 
@@ -180,14 +180,14 @@ void Scenario3(double errorRate)
 
 		std::cout << "--- with encoding ---" << std::endl;
 
-		Encoder encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+		Encoder<FiniteField<2>> encoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 		encoder.Encode(vector);
 
 		Channel<FiniteField<2>> channel(errorRate, encoder.GetOutput());
 		channel.Simulate();
 		std::cout << channel.GetErrorCount() << " of " << channel.GetInput().Size() << " errors made in channel." << std::endl;
 
-		Decoder decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
+		Decoder<FiniteField<2>> decoder(Vector<FiniteField<2>>({ ZERO, ZERO, ZERO, ZERO, ZERO, ZERO }));
 		decoder.Decode(channel.GetOutput());
 
 		stbi_write_bmp("WithEncoding.bmp", width, height, n, decoder.GetTrueOutput().ToBytes().data());

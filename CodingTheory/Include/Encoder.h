@@ -5,20 +5,41 @@
 
 namespace TomasMo
 {
+	template<typename T>
 	class Encoder final
 	{
 	private:
-		Vector<FiniteField<2>> _state;
-		Vector<FiniteField<2>> _output;
+		Vector<T> _state;
+		Vector<T> _output;
 
 	private:
-		void Add(FiniteField<2> finiteField);
+		void Add(T finiteField)
+		{
+			_output.Add(finiteField);
+			_state.AddFront(finiteField);
+			_output.Add(_state[0] + _state[2] + _state[5] + _state[6]);
+			_state.Pop();
+		}
 
 	public:
-		Encoder(const Vector<FiniteField<2>>& state);
+		Encoder(const Vector<T>& state)
+			: _state(state)
+		{
+		}
 
-		Vector<FiniteField<2>>& GetOutput() { return _output; }
+		Vector<T>& Encode(const Vector<T>& input)
+		{
+			for (unsigned i = 0; i < input.Size(); i++)
+			{
+				Add(input[i]);
+			}
+			for (unsigned i = 0; i < 6; i++)
+			{
+				Add(T::Zero());
+			}
+			return _output;
+		}
 
-		Vector<FiniteField<2>>& Encode(const Vector<FiniteField<2>>& input);
+		Vector<T>& GetOutput() { return _output; }
 	};
 }

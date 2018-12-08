@@ -25,6 +25,7 @@ namespace TomasMo {
 		Vector(const std::string& text)
 			: Values()
 		{
+			Values.reserve(text.size());
 			for (char c : text)
 			{
 				uint8_t mask = 0x80;
@@ -183,8 +184,6 @@ namespace TomasMo {
 
 		friend std::istream& operator>>(std::istream& stream, Vector& obj)
 		{
-			//TODO can be improved but I think not necessery for avaluation
-			//separatos would be nice, but for finary doesn't matter
 			obj.Values.clear();
 
 			char buffer[256];
