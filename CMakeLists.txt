@@ -14,9 +14,6 @@ set(CODING_THEORY_HEADERS
 )
 
 set(CODING_THEORY_SOURCES
-    "CodingTheory/Source/Decoder.cpp"
-    "CodingTheory/Source/Encoder.cpp"
-
     "CodingTheory/Source/Utils/stb_image_write.cpp"
     "CodingTheory/Source/Utils/stb_image.cpp"
     
