@@ -21,17 +21,17 @@ namespace TomasMo
 			_firstState.AddFront(firstFiniteField);
 			auto firstSum = _firstState[0] + _firstState[2] + _firstState[5] + _firstState[6];
 
-			_secondState.AddFront(firstSum + secondFiniteField);
-
-			bool mdeResult = MajorityDecisionElement<T>(_secondState[0], _secondState[1], _secondState[4], _secondState[6]);
-
 			//feddback
 			_secondState[0] += _prevMdeResult;
 			_secondState[1] += _prevMdeResult;
 			_secondState[4] += _prevMdeResult;
+			//--------
 
-			_prevMdeResult = mdeResult;
-			//------------------------------
+			_secondState.AddFront(firstSum + secondFiniteField);
+
+			bool mdeResult = MajorityDecisionElement<T>(_secondState[0], _secondState[1], _secondState[4], _secondState[6]);
+
+			_prevMdeResult = T(mdeResult);
 
 			_output.Add(T(mdeResult) + _firstState[6]);
 
